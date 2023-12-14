@@ -1,5 +1,7 @@
 #include <iostream>
 #include"../include/BoardGame_Classes.hpp"
+#include "../include/PyramidHeaders.hpp"
+#include "../include/Connect4Headers.hpp"
 #include"Player.cpp"
 #include"RandomPlayer.cpp"
 #include"GameManager.cpp"
