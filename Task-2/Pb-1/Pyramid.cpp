@@ -5,7 +5,7 @@
 #include <iostream>
 #include <algorithm>
 #include <iomanip>
-#include "../include/BoardGame_Classes.hpp"
+#include "../include/PyramidHeaders.hpp"
 using namespace std;
 
 PyramidBoard::PyramidBoard() {
