@@ -9,12 +9,14 @@
 #include "BoardGame_Classes.hpp"
 #ifndef INC_20221007_GAME_3_GAME_3_20221007_20220220_H
 #define INC_20221007_GAME_3_GAME_3_20221007_20220220_H
+
 class X_O_5 : public Board{
 
 public:
-      char s1 = ' ', s2 = ' ';
-
+    
+    char s1 = ' ', s2 = ' ';
     int player_score_x , player_score_o;
+    
     X_O_5 ();
     bool update_board (int x, int y, char mark);
     bool undo_move(int i, int j);
