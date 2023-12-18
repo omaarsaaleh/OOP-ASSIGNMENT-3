@@ -10,7 +10,8 @@
 #include <iostream>
 #include <algorithm>
 #include <iomanip>
-#include "X_O_5_in_5.hpp"
+#include "../include/X_O_5_in_5.hpp"
+
 // set the board
 X_O_5::X_O_5() {
     n_rows = n_cols = 5;
@@ -22,20 +23,22 @@ X_O_5::X_O_5() {
         }
     }
 }
-/*
- * here we check if the player move is valid or not
- * and put it on the board
- */
+
+
+//here we check if the player move is valid or not
+//and put it on the board
+ 
 bool X_O_5::update_board(int x, int y, char mark) {
-     if (s1 == ' ')
-         s1 = mark;
-     else if (s2 == ' ')
-         s2 = mark;
-     if (!(x < 0 || x > 4 || y < 0 || y > 4) && (board[x][y] == 0)){
-         board[x][y] = tolower(mark);
-         n_moves++;
-         return true;
-     }
+    if (s1 == ' ')
+        s1 = toupper( mark);
+    else if(s2 == ' ')
+        s2 = toupper (mark);
+    
+    if (!(x < 0 || x > 4 || y < 0 || y > 4) && (board[x][y] == 0)){
+        board[x][y] = toupper(mark);
+        n_moves++;
+        return true;
+    }
     return false;
 }
 
@@ -59,30 +62,30 @@ bool X_O_5::undo_move(int i , int j){
 
 void X_O_5::display_board() {
     cout << "\n-----------------------------------------";
-      for(int i : {0, 1, 2, 3, 4}){
-          cout << "\n|";
-          for (int j : {0, 1, 2, 3, 4}) {
-              cout << "(" << i << "," << j << ")";
-              cout << setw(2) << board[i][j] << "|";
-          }
-          cout << "\n-----------------------------------------";
-      }
-      cout << "\n";
+        for(int i : {0, 1, 2, 3, 4}){
+            cout << "\n|";
+            for (int j : {0, 1, 2, 3, 4}) {
+                cout << "(" << i << "," << j << ")";
+                cout << setw(2) << board[i][j] << "|";
+            }
+            cout << "\n-----------------------------------------";
+        }
+    cout << "\n";
 }
 
 //--------------------------------------------------------------------------
 //--------------------------------------------------------------------------
 
 pair<string,int> X_O_5::testboard( ){
-    int score_x = 0;
-    int score_o = 0;
+    int score_s1 = 0;
+    int score_s2 = 0;
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j) {
             if ((j + 2 <= 4) && (board[i][j] == board[i][j + 1] && board[i][j+1] == board[i][j + 2])) {
                 if (board[i][j] == s1)
-                    score_x++;
+                    score_s1++;
                 else
-                    score_o++;
+                    score_s2++;
             }
         }
 
@@ -95,9 +98,9 @@ pair<string,int> X_O_5::testboard( ){
             if ((j + 2 <= 4) && (board[j][i] == board[j+1][i] && board[j+1][i] == board[j+2][i]))
             {
                 if (board[j][i] == s1)
-                    score_x++;
+                    score_s1 ++ ;
                 else
-                    score_o++;
+                    score_s2 ++ ;
             }
         }
 
@@ -111,16 +114,16 @@ pair<string,int> X_O_5::testboard( ){
             j = arrj[cnt];
             if ((board[i][j] == board[i+1][j+1] && board[i+1][j+1] == board[i+2][j+2])){
                  if ( board[i][j] == s1)
-                     score_x++;
+                     score_s1++;
                  else
-                     score_o++;
+                     score_s2++;
             }
             if (i != j) {
                 if ((board[j][i] == board[j + 1][i + 1] && board[j + 1][i + 1] == board[j + 2][i + 2])) {
                     if (board[j][i] == s1)
-                        score_x++;
+                        score_s1++;
                     else
-                        score_o++;
+                        score_s2++;
                 }
             }
             cnt++;
@@ -136,9 +139,9 @@ pair<string,int> X_O_5::testboard( ){
                   if (board[i][j] == board[i+1][j-1]  && board[i+1][j-1] == board[i+2][j-2])
                   {
                       if (board[i][j] == s1)
-                          score_x++;
+                          score_s1++;
                       else
-                          score_o++;
+                          score_s2++;
                   }
             cnt++;
             break;
@@ -146,11 +149,17 @@ pair<string,int> X_O_5::testboard( ){
 
     }
 
-    if(score_o==score_x){
+    //cout << score_s1 << ' ' << score_s2 << '\n' ;
+    if(score_s1==score_s2){
+        //cout << "draw from test\n";
+        //cout << s1 << ' ' << s2 << '\n';
         return make_pair("D",0);
+        
     }
     else {
-        return make_pair("W",abs(score_o-score_x));
+        //cout << "WIN FROM TEST\n";
+        //cout << s1 << ' ' << s2 << '\n';
+        return make_pair("W",abs(score_s2-score_s1));
     }
     
 }
@@ -164,8 +173,9 @@ pair<string,int> X_O_5::testboard( ){
 
 
 bool X_O_5::is_winner( ) {
-    player_score_x = 0;
-    player_score_o = 0;
+    if(n_moves<24){return false ;}
+    int player_score_x = 0;
+    int player_score_o = 0;
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j) {
             if ((j + 2 <= 4) && (board[i][j] == board[i][j + 1] && board[i][j+1] == board[i][j + 2])) {
@@ -239,11 +249,14 @@ bool X_O_5::is_winner( ) {
 //--------------------------------------------------------------------------------------------------
 
 
-if (player_score_x > player_score_o && n_moves == 24)
-    cout << s1 << " wins";
-else if (player_score_o > player_score_x && n_moves == 24)
-    cout << s2 << " wins";
-    return false;
+if (player_score_x > player_score_o ){
+    cout << s1 << " Wins!\n"; 
+    return true ;
+}
+else if (player_score_o > player_score_x ){
+    cout << s2 << " Wins!\n"; return true ;
+}   
+return false;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -266,14 +279,14 @@ bool X_O_5::game_is_over() {
 
 
 void RandomPlayer5::get_move(int &x, int &y) {
-     x = (int) (rand() / (RAND_MAX + 1.0) * dimations);
-     y = (int) (rand() / (RAND_MAX + 1.0) * dimations);
+    x = (int) (rand() / (RAND_MAX + 1.0) * dimations);
+    y = (int) (rand() / (RAND_MAX + 1.0) * dimations);
 }
 
 RandomPlayer5::RandomPlayer5(char s, int d) : Player(s) {
-         this->dimations = d;
-         this->name="Random Computer Player";
-         cout << "MY name is " << name << "\n";
+    this->dimations = d;
+    this->name="Random Computer Player";
+    cout << "MY name is " << name << "\n";
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -283,6 +296,7 @@ RandomPlayer5::RandomPlayer5(char s, int d) : Player(s) {
 
 int minimax(X_O_5 *Board, bool isMaxPlayer , int depth) {
     pair<string,int> test = Board->testboard();
+    //cout << test.first << ' ' << test.second << '\n';
     if(test.first=="W"){
         if(!isMaxPlayer){ //cout << "Max Player wins!\n";
         return -test.second ;}
@@ -297,7 +311,7 @@ int minimax(X_O_5 *Board, bool isMaxPlayer , int depth) {
         int bestScore = INT_MIN;
         for (int i = 0; i <6 ; ++i) {
             for (int j = 0; j < 6 ; ++j) {
-                if (Board->update_board(i,j,'O')) {
+                if (Board->update_board(i,j,Board->s2)) {
                     //cout << "Max Player Move: (" << i << ", " << j << ")\n";
                     //Board->display_board();
                     bestScore = max(bestScore, minimax(Board, false , depth+1));
@@ -312,7 +326,7 @@ int minimax(X_O_5 *Board, bool isMaxPlayer , int depth) {
         int bestScore = INT_MAX;
         for (int i = 0; i <6 ; ++i) {
             for (int j = 0; j < 6 ; ++j) {
-                if (Board->update_board(i,j,'X')) {            
+                if (Board->update_board(i,j,Board->s1)) {            
                     //cout << "Min Player Move: (" << i << ", " << j << ")\n";
                     //Board->display_board();
                     bestScore = min(bestScore, minimax(Board, true ,depth+1));
@@ -332,7 +346,7 @@ pair<int,int> GetBestMove(X_O_5  *Board) {
 
     for (int i = 0; i < 6; ++i) {
         for (int j = 0; j < 6; ++j) {
-            if (Board->update_board(i,j,'O')) {
+            if (Board->update_board(i,j,Board->s2)) {
                 //Board->display_board();
                 //cout << "Player Move: (" << i << ", " << j << ")\n";
                 int moveScore = minimax(Board, false , 0);
@@ -346,7 +360,7 @@ pair<int,int> GetBestMove(X_O_5  *Board) {
             }
         }
     }
-    //cout << "Best Move: (" << bestMoveX << ", " << bestMoveY << ")\n";
+    cout << "Best Move: (" << bestMoveX << ", " << bestMoveY << ")\n";
     return make_pair(bestMoveX,bestMoveY);
     
 }
