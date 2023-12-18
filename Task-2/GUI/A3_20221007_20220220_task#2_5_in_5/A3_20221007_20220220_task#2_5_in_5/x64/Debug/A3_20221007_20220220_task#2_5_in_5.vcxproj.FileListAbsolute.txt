@@ -1,0 +1,3 @@
+C:\Users\Ahmed Rabie\source\repos\A3_20221007_20220220_task#2_5_in_5\A3_20221007_20220220_task#2_5_in_5\x64\Debug\A3_20221007_20220220_task#2_5_in_5.vcxproj.AssemblyReference.cache
+C:\Users\Ahmed Rabie\source\repos\A3_20221007_20220220_task#2_5_in_5\A3_20221007_20220220_task#2_5_in_5\x64\Debug\A32022100720220220task25in5.MyForm.resources
+C:\Users\Ahmed Rabie\source\repos\A3_20221007_20220220_task#2_5_in_5\A3_20221007_20220220_task#2_5_in_5\x64\Debug\A3_20221007_20220220_task#2_5_in_5.vcxproj.GenerateResource.cache
