@@ -1,0 +1,5 @@
+﻿  MyForm.cpp
+C:\Users\Ahmed Rabie\source\repos\A3_Four_in_a_row_20221007_20220220\A3_Four_in_a_row_20221007_20220220\MyForm.cpp(5,33): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
+C:\Users\Ahmed Rabie\source\repos\A3_Four_in_a_row_20221007_20220220\A3_Four_in_a_row_20221007_20220220\MyForm.cpp(79): warning C4715: 'A3Fourinarow2022100720220220::MyForm::is_winner': not all control paths return a value
+  MyForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+  A3_Four_in_a_row_20221007_20220220.vcxproj -> C:\Users\Ahmed Rabie\source\repos\A3_Four_in_a_row_20221007_20220220\x64\Debug\A3_Four_in_a_row_20221007_20220220.exe
